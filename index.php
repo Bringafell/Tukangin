@@ -71,7 +71,24 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                 </div>
                 <a href="?page=contact" class="nav-item nav-link <?= ($page == 'contact' ? 'active' : '') ?>">Contact</a>
             </div>
-            <a href="?page=order" class="btn btn-primary px-3 d-none d-lg-block">Order Now</a>
+            <?php
+            if (isset($_SESSION['pelanggan'])) {
+            ?>
+                <div style="margin-right: 20px;">
+                    <a href="?page=order" class="btn btn-primary px-3 d-none d-lg-block">Order Now</a>
+                </div>
+                <div>
+                    <a href="?page=logout" class="btn btn-danger px-3 d-none d-lg-block">Logout</a>
+                </div>
+
+
+            <?php
+            } else {
+            ?>
+                <a href="./admin/pages/login.php" class="btn btn-primary px-3 d-none d-lg-block">Login</a>
+            <?php
+            }
+            ?>
         </div>
     </nav>
     <!-- Navbar End -->

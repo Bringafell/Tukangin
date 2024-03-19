@@ -1,17 +1,34 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.1.0
-=========================================================
+<?php
+include "../../koneksi.php";
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+if (!empty($_SESSION['pelanggan']['username'])) {
+  header('location : index.php');
+}
 
-=========================================================
+if (isset($_POST['username'])) {
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+  $username = $_POST['username'];
+  $password = md5($_POST['password']);
+
+  $cek_admin = mysqli_query($koneksi, "SELECT*FROM admin WHERE username='$username' AND password='$password'");
+
+  if (mysqli_num_rows($cek_admin) > 0) {
+
+    $_SESSION['admin'] = mysqli_fetch_array($cek_admin);
+    echo '<script>alert("Selamat, anda berhasil login");location.href="index.php";</script>';
+  } else {
+    $cek_user = mysqli_query($koneksi, "SELECT * FROM pelanggan WHERE username='$username' and password='$password'");
+
+    if (mysqli_num_rows($cek_user) > 0) {
+
+      $_SESSION['pelanggan'] = mysqli_fetch_array($cek_user);
+      echo '<script>alert("Selamat, anda berhasil login");location.href="../../index.php";</script>';
+    } else {
+      echo '<script>alert("Username/password salah!");location.href="./login.php";</script>';
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +60,7 @@
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
-     
+
         <!-- End Navbar -->
       </div>
     </div>
@@ -56,47 +73,32 @@
           <div class="col-lg-4 col-md-8 col-12 mx-auto">
             <div class="card z-index-0 fadeIn3 fadeInBottom">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h4>
+                <div class="bg-gradient-warning shadow-warning border-radius-lg py-3 pe-1">
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Login</h4>
                   <div class="row mt-3">
-                    <div class="col-2 text-center ms-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-facebook text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center px-1">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-github text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center me-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-google text-white text-lg"></i>
-                      </a>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <form role="form" class="text-start">
+                <form role="form" class="text-start" method="post">
                   <div class="input-group input-group-outline my-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control">
+                    <label class="form-label">username</label>
+                    <input type="text" name="username" class="form-control">
                   </div>
                   <div class="input-group input-group-outline mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control">
-                  </div>
-                  <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
+                    <label class="form-label">password</label>
+                    <input type="password" name="password" class="form-control">
                   </div>
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
+                    <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Sign in</button>
                   </div>
                   <p class="mt-4 text-sm text-center">
-                    Don't have an account?
-                    <a href="../pages/sign-up.html" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    Belum Punya Akun?
+                    <a href="../pages/register.php" class="text-warning text-gradient font-weight-bold">Register</a>
+                  </p>
+                  <p class="mt-4 text-sm text-center">
+
+                    <a href="../../index.php" class="text-warning text-gradient font-weight-bold">kembali</a>
                   </p>
                 </form>
               </div>
@@ -113,25 +115,9 @@
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Creative Tim</a>
-                for a better web.
+                <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Tukangin</a>
+
               </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-white" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-white" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-white" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-white" target="_blank">License</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
