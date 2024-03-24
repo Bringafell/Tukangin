@@ -97,6 +97,10 @@ if (isset($_POST['username'])) {
                     <a href="../pages/register.php" class="text-warning text-gradient font-weight-bold">Register</a>
                   </p>
                   <p class="mt-4 text-sm text-center">
+                   ingin mendaftar jadi tukang?
+                    <a href="../pages/register_tukang.php" class="text-warning text-gradient font-weight-bold">Register</a>
+                  </p>
+                  <p class="mt-4 text-sm text-center">
 
                     <a href="../../index.php" class="text-warning text-gradient font-weight-bold">kembali</a>
                   </p>

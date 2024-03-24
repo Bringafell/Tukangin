@@ -10,7 +10,7 @@
                             <div class="col-lg-10 text-start text-center">
                                 <p class="fs-5 fw-medium text-primary text-uppercase animated slideInRight">Dapatkan Pelayanan Terbaik untuk Rumah Anda</p>
                                 <h1 class="display-1 text-white mb-5 animated slideInRight">Selamat Datang di Tukangin</h1>
-                                <a href="" class="btn btn-primary py-3 px-5 animated slideInRight">Butuh Jasa Tukang ?</a>
+                                <a href="?page=order" class="btn btn-primary py-3 px-5 animated slideInRight">Butuh Jasa Tukang ?</a>
                             </div>
                         </div>
                     </div>
