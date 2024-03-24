@@ -2,7 +2,7 @@
 require "../../koneksi.php";
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
-if (empty($_SESSION['user']['username'])) {
+if (empty($_SESSION['admin']['username'])) {
   header('location: login.php');
 }
 
@@ -32,7 +32,7 @@ if (empty($_SESSION['user']['username'])) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../assets/img/vicon.png">
   <title>
     Admin Tukangin
   </title>
@@ -61,8 +61,8 @@ if (empty($_SESSION['user']['username'])) {
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="#">
-        <i class="material-icons text-white opacity-10">import_contacts</i>
-        <span class="ms-1 font-weight-bold text-white">Perpustakaan digital</span>
+        <img src="../assets/img/Tukangin-removebg.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold text-white">Database Tukangin</span>
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -76,79 +76,62 @@ if (empty($_SESSION['user']['username'])) {
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link text-white  <?= ($page == 'user' ? 'active bg-gradient-info' : '') ?> " href="?page=user">
+          <a class="nav-link text-white  <?= ($page == 'admin' ? 'active bg-gradient-warning' : '') ?> " href="?page=admin">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
-            <span class="nav-link-text ms-1">user</span>
+            <span class="nav-link-text ms-1">admin</span>
           </a>
         </li>
-
-
-
-
         <li class="nav-item">
-          <a class="nav-link text-white  <?= ($page == 'history' ? 'active bg-gradient-info' : '') ?> " href="?page=history">
+          <a class="nav-link text-white  <?= ($page == 'pelanggan' ? 'active bg-gradient-warning' : '') ?> " href="?page=pelanggan">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">pelanggan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white <?= ($page == 'pekerja' ? 'active bg-gradient-warning' : '') ?>" href="?page=pekerja">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">engineering</i>
+            </div>
+            <span class="nav-link-text ms-1">pekerja</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white  <?= ($page == 'laporan' ? 'active bg-gradient-warning' : '') ?> " href="?page=laporan">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">history_toggle_off</i>
             </div>
-            <span class="nav-link-text ms-1">riwayat peminjaman</span>
+            <span class="nav-link-text ms-1">Laporan</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white  <?= ($page == 'kategori' ? 'active bg-gradient-info' : '') ?> " href="?page=kategori">
+          <a class="nav-link text-white  <?= ($page == 'ulasan' ? 'active bg-gradient-warning' : '') ?> " href="?page=ulasan">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">library_books</i>
             </div>
-            <span class="nav-link-text ms-1">kategori</span>
+            <span class="nav-link-text ms-1">ulasan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white  <?= ($page == 'pesanan' ? 'active bg-gradient-warning' : '') ?> " href="?page=pesanan">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">library_books</i>
+            </div>
+            <span class="nav-link-text ms-1">pesanan</span>
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link text-white  <?= ($page == 'peminjaman' ? 'active bg-gradient-info' : '') ?> " href="?page=peminjaman">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">library_add</i>
-            </div>
-            <span class="nav-link-text ms-1">peminjaman</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white  <?= ($page == 'koleksi' ? 'active bg-gradient-info' : '') ?> " href="?page=koleksi">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">favorite</i>
-            </div>
-            <span class="nav-link-text ms-1">Koleksi</span>
-          </a>
-        </li>
 
-        <li class="nav-item">
-          <a class="nav-link text-white <?= ($page == 'buku' ? 'active bg-gradient-info' : '') ?>" href="?page=buku">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">auto_stories</i>
-            </div>
-            <span class="nav-link-text ms-1">buku</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-white " href="logout.php">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">logout</i>
-            </div>
-            <span class="nav-link-text ms-1">logout</span>
-          </a>
-        </li>
 
         <div class="sidenav-footer position-absolute w-100 bottom-0 ">
           <div class="mx-3">
-            <a class="btn bg-gradient-info w-100" href="?page=peminjamanx" type="button">
-              <i class="material-icons opacity-10">logout</i> Peminjaman</a>
-            <a class="btn bg-gradient-primary w-100" href="?page=pengembalianx" type="button">
-              <i class="material-icons opacity-10">login</i>Pengembalian</a>
 
-
+            <a class="btn bg-gradient-primary w-100" href="../../index.php" type="button">
+              <i class="material-icons opacity-10">logout</i>Logout</a>
           </div>
         </div>
 
@@ -170,7 +153,7 @@ if (empty($_SESSION['user']['username'])) {
           <li class="nav-item d-flex align-items-center">
 
             <i class="fa fa-user me-sm-1"></i>
-            <span class="d-sm-inline d-none"><?= $_SESSION['user']['nama_lengkap'] ?></span>
+            <span class="d-sm-inline d-none"><?= $_SESSION['admin']['nama_admin'] ?></span>
             </a>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -189,7 +172,7 @@ if (empty($_SESSION['user']['username'])) {
     <!-- End Navbar -->
     <hr class="dark horizontal my-0">
     <?php
-    include './admin/pages/' . $page . '.php';
+    include '../../admin/pages/' . $page . '.php';
     ?>
   </main>
 
